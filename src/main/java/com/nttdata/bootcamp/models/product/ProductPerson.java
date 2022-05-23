@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductPerson {
-	private String idCustomerPerson;
 	private PersonalCredit personalCredit;
 	private SavingAccount savingAccount;
 	private CurrentAccount currentAccount;

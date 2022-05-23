@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 
 import com.nttdata.bootcamp.models.CustomerEnterprise;
@@ -24,6 +25,7 @@ import com.nttdata.bootcamp.repositories.ICustomerPersonRepo;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
+@EnableEurekaClient
 @Slf4j
 @SpringBootApplication
 public class BootcampServiceCustomerApplication implements CommandLineRunner {
@@ -45,6 +47,7 @@ public class BootcampServiceCustomerApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		mongoTemplate.dropCollection("customer_persons").subscribe();
+		mongoTemplate.dropCollection("customer_enterprises").subscribe();
 		
 		PersonalCredit pc = PersonalCredit.builder().accountingBalance("100").availableBalance("100").build();
 		SavingAccount sa = SavingAccount.builder().accountingBalance("100").maintenance("2").movementLimit("2").build();
@@ -64,7 +67,7 @@ public class BootcampServiceCustomerApplication implements CommandLineRunner {
 					return personRepo.save(c);
 				}).subscribe(p->log.info("Se inserto customerPerson: "+p));
 		
-		mongoTemplate.dropCollection("customer_enterprises").subscribe();
+		/**************************************/
 		
 		List<String> ownerNames = new ArrayList<>();
 		ownerNames.add("alina");

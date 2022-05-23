@@ -30,9 +30,9 @@ public class CustomerEnterpriseImp implements IServiceCustomerEnterprise {
 	public Flux<CustomerEnterprise> findAll() {
 		
 		return enterpriseRepo.findAll().flatMap(enterprise->{
-			List<BusinessCredit> businessCredits = clientRest.getForObject("http://localhost:8020/businessCredit/findById/"+enterprise.getId(), List.class);
-			List<CurrentAccount> currentAccounts = clientRest.getForObject("http://localhost:8021/currentAccount/findById/"+enterprise.getId(), List.class);
-			ProductEnterprise productEnterprise = new ProductEnterprise(enterprise.getId(),businessCredits,currentAccounts);
+			List<BusinessCredit> businessCredits = clientRest.getForObject("http://localhost:8020/businessCredit/findByIdCustomerEnterprise/"+enterprise.getId(), List.class);
+			List<CurrentAccount> currentAccounts = clientRest.getForObject("http://localhost:8021/currentAccount/findByIdCustomer/"+enterprise.getId(), List.class);
+			ProductEnterprise productEnterprise = new ProductEnterprise(businessCredits,currentAccounts);
 			enterprise.setProductEnterprise(productEnterprise);
 			return Flux.just(enterprise);
 		});
@@ -40,9 +40,9 @@ public class CustomerEnterpriseImp implements IServiceCustomerEnterprise {
 
 	@Override
 	public Mono<CustomerEnterprise> findById(String id) {
-		List<BusinessCredit> businessCredits = clientRest.getForObject("http://localhost:8020/businessCredit/findById/"+id, List.class);
-		List<CurrentAccount> currentAccounts = clientRest.getForObject("http://localhost:8021/currentAccount/findById/"+id, List.class);
-		ProductEnterprise productEnterprise = new ProductEnterprise(id,businessCredits,currentAccounts);
+		List<BusinessCredit> businessCredits = clientRest.getForObject("http://localhost:8020/businessCredit/findByIdCustomerEnterprise/"+id, List.class);
+		List<CurrentAccount> currentAccounts = clientRest.getForObject("http://localhost:8021/currentAccount/findByIdCustomer/"+id, List.class);
+		ProductEnterprise productEnterprise = new ProductEnterprise(businessCredits,currentAccounts);
 		return enterpriseRepo.findById(id).flatMap(p->{
 			p.setProductEnterprise(productEnterprise);
 			return Mono.just(p);

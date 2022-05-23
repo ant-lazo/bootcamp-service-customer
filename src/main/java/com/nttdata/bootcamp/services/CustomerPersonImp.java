@@ -27,11 +27,11 @@ public class CustomerPersonImp implements IServiceCustomerPerson {
 	@Override
 	public Flux<CustomerPerson> findAll() {
 		return personRepo.findAll().flatMap(person->{
-			PersonalCredit personalCredit = clientRest.getForObject("http://localhost:8023/personalCredit/findById/"+person.getId(),PersonalCredit.class);
-			SavingAccount savingAccount = clientRest.getForObject("http://localhost:8024/savingAccount/findById/"+person.getId(),SavingAccount.class);
-			CurrentAccount currentAccount = clientRest.getForObject("http://localhost:8021/currentAccount/findById/"+person.getId(),CurrentAccount.class);
-			List<FixedTermAccount> fixedTermAccounts = clientRest.getForObject("http://localhost:8021/fixedTermAccount/findById/"+person.getId(),List.class);
-			ProductPerson productPerson =new ProductPerson(person.getId(), personalCredit, savingAccount, currentAccount, fixedTermAccounts);
+			PersonalCredit personalCredit = clientRest.getForObject("http://service-product-personalcredit/personalCredit/findByIdCustomerPerson/"+person.getId(),PersonalCredit.class);
+			SavingAccount savingAccount = clientRest.getForObject("http://service-product-savingaccount/savingAccount/findByIdCustomerPerson/"+person.getId(),SavingAccount.class);
+			CurrentAccount currentAccount = clientRest.getForObject("http://service-product-currentaccount/currentAccount/findByIdCustomerAndTypeCustomer/"+person.getId()+"/customerPerson",CurrentAccount.class);
+			List<FixedTermAccount> fixedTermAccounts = clientRest.getForObject("http://service-product-fixedtermaccount/fixedTermAccount/findByIdCustomerPerson/"+person.getId(),List.class);
+			ProductPerson productPerson =new ProductPerson(personalCredit, savingAccount, currentAccount, fixedTermAccounts);
 			person.setProductPerson(productPerson);
 			return Flux.just(person);
 		});
@@ -40,11 +40,11 @@ public class CustomerPersonImp implements IServiceCustomerPerson {
 
 	@Override
 	public Mono<CustomerPerson> findById(String id) {
-		PersonalCredit personalCredit = clientRest.getForObject("http://localhost:8023/personalCredit/findById/"+id,PersonalCredit.class);
-		SavingAccount savingAccount = clientRest.getForObject("http://localhost:8024/savingAccount/findById/"+id,SavingAccount.class);
-		CurrentAccount currentAccount = clientRest.getForObject("http://localhost:8021/currentAccount/findById/"+id,CurrentAccount.class);
-		List<FixedTermAccount> fixedTermAccounts = clientRest.getForObject("http://localhost:8021/fixedTermAccount/findById/"+id,List.class);
-		ProductPerson productPerson =new ProductPerson(id, personalCredit, savingAccount, currentAccount, fixedTermAccounts);
+		PersonalCredit personalCredit = clientRest.getForObject("http://service-product-personalcredit/personalCredit/findByIdCustomerPerson/"+id,PersonalCredit.class);
+		SavingAccount savingAccount = clientRest.getForObject("http://service-product-savingaccount/savingAccount/findByIdCustomerPerson/"+id,SavingAccount.class);
+		CurrentAccount currentAccount = clientRest.getForObject("http://service-product-currentaccount/currentAccount/findByIdCustomerPerson/"+id,CurrentAccount.class);
+		List<FixedTermAccount> fixedTermAccounts = clientRest.getForObject("http://service-product-fixedtermaccount/fixedTermAccount/findByIdCustomerPerson/"+id,List.class);
+		ProductPerson productPerson =new ProductPerson(personalCredit, savingAccount, currentAccount, fixedTermAccounts);
 		return personRepo.findById(id).flatMap(p->{
 			p.setProductPerson(productPerson);
 			return Mono.just(p);
