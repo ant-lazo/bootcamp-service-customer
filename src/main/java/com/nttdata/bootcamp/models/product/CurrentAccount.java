@@ -15,4 +15,5 @@ public class CurrentAccount {
 	private String typeCustomer;
 	private String accountingBalance;
 	private String maintenance;
+	private String profile;
 }
