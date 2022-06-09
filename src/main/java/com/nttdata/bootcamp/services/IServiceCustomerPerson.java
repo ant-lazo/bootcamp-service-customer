@@ -14,4 +14,6 @@ public interface IServiceCustomerPerson {
 	public Mono<CustomerPerson> save(CustomerPerson customerPerson);
 	
 	public Mono<Void> delete(CustomerPerson customerPerson);
+
+	public Mono<CustomerPerson> findByIdDocument(String idDocument);
 }

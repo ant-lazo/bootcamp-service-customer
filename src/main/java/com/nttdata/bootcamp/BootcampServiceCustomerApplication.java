@@ -46,7 +46,7 @@ public class BootcampServiceCustomerApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		mongoTemplate.dropCollection("customer_persons").subscribe();
+		/*mongoTemplate.dropCollection("customer_persons").subscribe();
 		mongoTemplate.dropCollection("customer_enterprises").subscribe();
 		
 		PersonalCredit pc = PersonalCredit.builder().accountingBalance("100").availableBalance("100").build();
@@ -54,22 +54,24 @@ public class BootcampServiceCustomerApplication implements CommandLineRunner {
 		CurrentAccount  ca = CurrentAccount.builder().accountingBalance("150").maintenance("5").build();
 		FixedTermAccount fta = FixedTermAccount.builder().accountingBalance("133").movementDay("01").build();
 		List<FixedTermAccount> lfta = new ArrayList<>();
-		lfta.add(fta);
+		lfta.add(fta);*/
 		
 		//ProductPerson a = ProductPerson.builder().personalCredit(pc).savingAccount(sa).currentAccount(ca).fixedTermAccounts(lfta).build();
 
-		Flux.just(CustomerPerson.builder()
+		/*Flux.just(CustomerPerson.builder()
 				.firstName("omar")
 				.lastName("lazo")
 				.idDocument("123456")
+				.cellphone("123456789")
+				.email("nnn@gmail.com")
 				.productPerson(null)
 				.build()).flatMap(c->{
 					return personRepo.save(c);
-				}).subscribe(p->log.info("Se inserto customerPerson: "+p));
+				}).subscribe(p->log.info("Se inserto customerPerson: "+p));*/
 		
 		/**************************************/
 		
-		List<String> ownerNames = new ArrayList<>();
+		/*List<String> ownerNames = new ArrayList<>();
 		ownerNames.add("alina");
 		ownerNames.add("vanesa");
 		List<String> authorizedSigners = new ArrayList<>();
@@ -84,18 +86,18 @@ public class BootcampServiceCustomerApplication implements CommandLineRunner {
 		CurrentAccount ca1 = CurrentAccount.builder().accountingBalance("159").maintenance("456").build();
 		CurrentAccount ca2 = CurrentAccount.builder().accountingBalance("159").maintenance("456").build();
 		currentAccounts.add(ca1);
-		currentAccounts.add(ca2);
+		currentAccounts.add(ca2);*/
 		
 		//ProductEnterprise b = ProductEnterprise.builder().businessCredits(businessCredits).currentAccounts(currentAccounts).build();
 		
-		Flux.just(CustomerEnterprise.builder()
+		/*Flux.just(CustomerEnterprise.builder()
 				.ownerNames(ownerNames)
 				.authorizedSigners(authorizedSigners)
 				.rucDocument("123456789")
 				.productEnterprise(null)
 				.build()).flatMap(z->{
 					return enterpriseRepo.save(z); 
-				}).subscribe(p->log.info("Se inserto customerEnterprise: "+ p));
+				}).subscribe(p->log.info("Se inserto customerEnterprise: "+ p));*/
 		
 	}
 

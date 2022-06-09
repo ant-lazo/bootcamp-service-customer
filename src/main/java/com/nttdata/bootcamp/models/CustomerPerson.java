@@ -21,6 +21,8 @@ public class CustomerPerson {
 	private String firstName;
 	private String lastName;
 	private String idDocument;
+	private String cellphone;
+	private String email;
 	private ProductPerson productPerson;
 	
 }

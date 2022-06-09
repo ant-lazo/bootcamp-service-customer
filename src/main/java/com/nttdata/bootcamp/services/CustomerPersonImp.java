@@ -61,4 +61,10 @@ public class CustomerPersonImp implements IServiceCustomerPerson {
 		return personRepo.delete(customerPerson);
 	}
 
+
+	@Override
+	public Mono<CustomerPerson> findByIdDocument(String idDocument) {
+		return personRepo.findByIdDocument(idDocument);
+	}
+
 }

@@ -65,5 +65,12 @@ public class CustomerPersonController {
 			return personRepo.delete(c);
 		});
 	}
+	
+	@GetMapping("/findByIdDocument/{idDocument}")
+	public Mono<CustomerPerson> findByIdDocument(@PathVariable String idDocument){
+		Mono<CustomerPerson> person = personRepo.findByIdDocument(idDocument);
+		log.info("one customer person was consulted by idDocument");
+		return person;
+	}
 
 }
